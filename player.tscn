@@ -1,0 +1,57 @@
+[gd_scene load_steps=9 format=3 uid="uid://c80b4cev4w68s"]
+
+[ext_resource type="Script" path="res://player_state_machine.gd" id="1_ebgkw"]
+[ext_resource type="Texture2D" uid="uid://yfsbdb4u7yos" path="res://airship-Sheet.png" id="1_fgmyp"]
+[ext_resource type="Script" path="res://player.gd" id="1_mgxyk"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fwajd"]
+atlas = ExtResource("1_fgmyp")
+region = Rect2(0, 0, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_huskp"]
+atlas = ExtResource("1_fgmyp")
+region = Rect2(64, 0, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uv1vm"]
+atlas = ExtResource("1_fgmyp")
+region = Rect2(128, 0, 64, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dvp85"]
+animations = [{
+"frames": [{
+"duration": 4.0,
+"texture": SubResource("AtlasTexture_fwajd")
+}, {
+"duration": 4.0,
+"texture": SubResource("AtlasTexture_huskp")
+}, {
+"duration": 4.0,
+"texture": SubResource("AtlasTexture_fwajd")
+}, {
+"duration": 4.0,
+"texture": SubResource("AtlasTexture_uv1vm")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5pupx"]
+radius = 9.0
+height = 38.0
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_mgxyk")
+
+[node name="PlayerStateMachine" type="Node" parent="."]
+script = ExtResource("1_ebgkw")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_dvp85")
+animation = &"idle"
+frame_progress = 0.347053
+flip_h = true
+
+[node name="Collider" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_5pupx")
