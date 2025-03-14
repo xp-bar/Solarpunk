@@ -41,6 +41,7 @@ radius = 9.0
 height = 38.0
 
 [node name="Player" type="CharacterBody2D"]
+texture_filter = 1
 script = ExtResource("1_mgxyk")
 
 [node name="PlayerStateMachine" type="Node" parent="."]
@@ -49,7 +50,7 @@ script = ExtResource("1_ebgkw")
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_dvp85")
 animation = &"idle"
-frame_progress = 0.347053
+frame_progress = 0.890165
 flip_h = true
 
 [node name="Collider" type="CollisionShape2D" parent="."]
