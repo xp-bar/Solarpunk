@@ -5,7 +5,6 @@ func _ready() -> void:
 	call_deferred('set_state', 'idle')
 
 func _state_logic(delta) -> void:
-	print_debug(state)
 	match state:
 		'idle':
 			parent.handle_movement(delta)
@@ -18,12 +17,12 @@ func _get_transition(delta):
 	var direction: Vector2 = parent._get_direction()
 	match state:
 		'flying':
-			if parent.is_still():
-				return 'idle'
 			if parent.is_on_floor():
 				return 'landed'
+			if parent.is_still():
+				return 'idle'
 		'landed':
-			if direction.y >= 0:
+			if direction.y < 0:
 				return 'flying'
 		'idle':
 			if direction:
@@ -32,16 +31,16 @@ func _get_transition(delta):
 
 	
 func _enter_state(newState, oldState) -> void:
-	var direction: Vector2 = parent._get_direction()
-
 	match newState:
-		'idle':
-			parent.sprite.play('idle')
+		#'idle':
+			#parent.sprite.play('idle')
 		'flying':
-			if direction.x > 0:
+			if parent.velocity.x > 0:
 				parent.sprite.flip_h = true
-			elif direction.x < 0:
+			elif parent.velocity.x < 0:
 				parent.sprite.flip_h = false
+		'landed':
+			parent.velocity.x = 0
 
 func _exit_state(oldState, newState) -> void:
 	pass
